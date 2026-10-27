@@ -88,3 +88,19 @@ h1{
   text-align: center;
   font-size: 12px;
 }
+
+.movie-grid{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.movie-card{
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid dimgray;
+  background: black;
+  :hover{
+    transform: translateY(-4px);
+  }
+}
