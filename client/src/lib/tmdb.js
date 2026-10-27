@@ -1,9 +1,9 @@
 const baseUrl = 'https://api.themoviedb.org/3';
 
 //check api from tmdb
-function isV3Key(token){
-    return /^0-9a-f]{32}$/.test(token);
-}
+// function isV3Key(token){
+//     return /^0-9a-f]{32}$/.test(token);
+// }
 
 
 async function request(path){
@@ -25,3 +25,13 @@ async function request(path){
     return response.json();
 }
 
+
+//popular movies on home page
+export function getPopularMovies(){
+    return request('/movie/popular?language=en-US&page=1');
+}
+
+//tmdb return image path -> full image url
+export function getImageUrl(path, size = 'w500'){
+    return path ? `https://image.tmdb.org/t/p/${size}${path}` : "";
+}
