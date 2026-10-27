@@ -12,7 +12,7 @@ async function request(path){
         throw new Error('TMDB API key is missing');
     }
 
-    const url = `${BASE_URL}${path}${path.includes("?") ? "&" : "?"}api_key=${token}`;
+    const url = `${baseUrl}${path}${path.includes("?") ? "&" : "?"}api_key=${token}`;
     const response = await fetch(url,{
         headers: {
             accept: 'application/json',
@@ -31,7 +31,7 @@ export function getPopularMovies(){
     return request('/movie/popular?language=en-US&page=1');
 }
 
-//tmdb return image path -> full image url
+//tmdb return image path -> full image URL
 export function getImageUrl(path, size = 'w500'){
     return path ? `https://image.tmdb.org/t/p/${size}${path}` : "";
 }

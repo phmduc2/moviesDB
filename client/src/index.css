@@ -19,6 +19,19 @@ body {
 }
 
 /*nav*/
+.nav-links{
+  display: flex;
+  gap: 8px;
+}
+.nav-link button {
+  color: silver;
+  border: 0;
+  background: none;
+  padding: 8px;
+  :hover{
+    color: white;
+  }
+}
 .site-header {
   display: flex;
   align-items: center;
