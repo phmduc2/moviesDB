@@ -50,6 +50,7 @@ body {
   color: white;
   font-size: 20px;
   font-weight: 800;
+  background: black;
 }
 .brand-mark {
   display: grid;

@@ -6,6 +6,8 @@ import {getPopularMovies} from "./lib/tmdb";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   //get popular movies
   useEffect(() => {
@@ -13,8 +15,16 @@ export default function App() {
   }, []);
 
   async function loadPopular() {
+    setLoading(true);
+    setError("");
+    try{
     const data = await getPopularMovies();
     setMovies(data.results || []);
+    } catch (err){
+      setError(err.message || "Could not load.");
+    } finally {
+      setLoading(false);
+    }
   }
 
 
@@ -28,7 +38,8 @@ export default function App() {
           <h1>Popular Movies</h1>
           <p>Discover movies, explore details, save a watchlist</p>          
         </section>
-
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         <MovieGrid movies={movies} />
         </main>
 
