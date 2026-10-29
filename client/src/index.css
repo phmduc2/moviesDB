@@ -211,3 +211,22 @@ h1{
   padding: 10px 16px;
   font-weight: 600;
 }
+
+
+/* responsive */
+@media (max-width: 1100px) {
+  .movie-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .site-header { gap: 16px; }
+}
+
+@media (max-width: 800px) {
+  .site-header { flex-wrap: wrap; }
+  .movie-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .page-content { padding-top: 28px; }
+  .site-header { flex-wrap: wrap; }
+  .movie-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+}
