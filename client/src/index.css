@@ -105,3 +105,35 @@ h1{
     transform: translateY(-4px);
   }
 }
+
+
+.back-btn{
+  margin-bottom: 18px;
+  padding: 8px 12px;
+  border: 1px solid dimgray;
+  border-radius: 4px;
+  background: transparent;
+  color: white;
+}
+.movie-detail{
+  min-height: 400px;
+  align-items: center;
+  border-radius: 20px;
+  background-position: center;
+  background-size: contain;
+  background-color: black;
+  background-repeat: no-repeat;
+}
+.detail-copy{
+  max-width: 300px;
+}
+.detail-meta{
+  color:silver;
+}
+.detail-overview{
+  color:silver;
+}
+.detail-genres{
+  color:silver;
+  font-size: 14px;
+}

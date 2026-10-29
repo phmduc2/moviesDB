@@ -62,12 +62,13 @@ export default function App() {
         {selectedMovie ?(
           <section>
             <button className="back-btn" onClick={backToList}>Back to list</button>
-            <div className="movie-details">
+            <div className="movie-details" style={{backgroundImage: selectedMovie.backdrop_path ? `linear-gradient(90deg, black, transparent), url(${getImageUrl(selectedMovie.backdrop_path, "original")})` : "none"}}>
               <div className="detail-copy">
                 <p className="next">Movie Details</p>
                 <h1>{selectedMovie.title}</h1>
                 <p className="detail-meta">
                   {selectedMovie.release_date || "Unknown"} {". "}★{Number(selectedMovie.vote_average).toFixed(1)}
+                  
                 </p>
                 <p className="detail-overview">{selectedMovie.overview || "No overview available."}</p>
                 <p className="detail-genres">
