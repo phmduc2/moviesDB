@@ -36,7 +36,7 @@ export function getImageUrl(path, size = 'w500'){
     return path ? `https://image.tmdb.org/t/p/${size}${path}` : "";
 }
 
-//show movies detail
+//to show movies detail
 export function getMovieDetails(movieID){
     return request(`/movie/${movieID}?language=en-US`);
 }
