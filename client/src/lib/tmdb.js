@@ -40,3 +40,8 @@ export function getImageUrl(path, size = 'w500'){
 export function getMovieDetails(movieID){
     return request(`/movie/${movieID}?language=en-US`);
 }
+
+//search movie by title
+export function searchMovies(query){
+    return request(`/search/movie?query=${encodeURIComponent(query)}&language=en-US&page=1&include_adult=false`);
+}
