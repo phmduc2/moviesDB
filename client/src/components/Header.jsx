@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 
-export default function Header({onHome, onSearch}){
+export default function Header({onHome, onSearch, onFavorites, activeView}){
 
     const [query, setQuery] = useState("");
     
@@ -32,7 +32,8 @@ export default function Header({onHome, onSearch}){
 
 
                 <nav className="nav-links">
-                    <button onClick={onHome}>Discover</button>
+                    <button className={activeView === "home" ? "active" : ""} onClick={onHome}>Discover</button>
+                    <button className={activeView === "favorites" ? "active" : ""} onClick={onFavorites}>Favorites</button>
                 </nav>
         </header>
     );

@@ -4,6 +4,18 @@ import {useEffect, useState} from "react";
 import {getPopularMovies} from "./lib/tmdb";
 import {getMovieDetails, getImageUrl, searchMovies} from "./lib/tmdb";
 
+
+
+
+function readFavorite(){
+  try{
+    return JSON.parse(localStorage.getItem("moviesdb-favorites") || "[]")
+  }catch{
+    return [];
+  }
+}
+
+
 export default function App() {
   //state for movies, loading, error, selected movie
   const [movies, setMovies] = useState([]);
@@ -11,6 +23,15 @@ export default function App() {
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [title, setTitle] = useState("Poplar Movies");
+  const [favorites, setFavorites] = useState(readFavorite);
+  const [view, setView] =useState("home");
+
+
+  //save favorite to local storage
+  useEffect(() => {
+    localStorage.setItem("moviesdb-favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
 
   //get popular movies
   useEffect(() => {
@@ -23,6 +44,7 @@ export default function App() {
     setError("");
     setSelectedMovie(null);
     //setSelectedMovie();
+    setView("home");
     setTitle("Popular Movies")
     
     try{
@@ -48,6 +70,7 @@ export default function App() {
     setSelectedMovie(null);
     //update heading
     setTitle(`Search result for "${query}"`);
+    setView("home");
     try{
       const data = await searchMovies(query);
       setMovies(data.results || [])
@@ -76,11 +99,32 @@ export default function App() {
 
   function backToList(){
     setSelectedMovie(null);
+    if ( view === "favorites"){
+      setTitle("your favorite");
+    }
+  }
+
+  const displayMovies = view === "favorites" ? favorites : movies;
+
+  function showFavorites(){
+    setSelectedMovie(null);
+    setView("favorites");
+    setTitle("Your Favorites");
+    setMovies(favorites);
+  }
+
+  //toggle if movie in favorite or not
+  function toggleFavorite(movie){
+    setFavorites((current) =>
+      current.some((item) => item.id === movie.id)
+    ? current.filter((item) => item.id !== movie.id)
+    : [movie, ...current]);
   }
 
   return (
     <div className="app-shell">
-      <Header onSearch={handleSearch}  onHome={loadPopular} />
+      <Header onSearch={handleSearch}  onHome={loadPopular} 
+              onFavorites={showFavorites} activeView={view}/>
 
       <main className="page-content">
         {/* if selectedMovie is not null, show movie details */}
@@ -99,6 +143,12 @@ export default function App() {
                 <p className="detail-genres">
                   {(selectedMovie.genres || []).map((genre) => genre.name).join(", ")}
                 </p>
+                  {/*save/remove button*/}
+                <button className="toggle-btn" onClick={() => toggleFavorite(selectedMovie)}>
+                  {favorites.some((item) => item.id === selectedMovie.id)
+                  ? "Remove"
+                  : "Add to favorites"}
+                </button>
               </div>
             </div>
           </section>
@@ -112,7 +162,7 @@ export default function App() {
         </section>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {!loading && !error && <MovieGrid movies={movies} onOpen={openMovie} />}
+        {!loading && !error && <MovieGrid movies={displayMovies} onOpen={openMovie} favorites={favorites} onToggleFavorites={toggleFavorite} />}
         </>
         )}
       </main>

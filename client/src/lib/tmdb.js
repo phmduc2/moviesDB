@@ -28,7 +28,7 @@ async function request(path){
 
 //popular movies on home page
 export function getPopularMovies(){
-    return request('/movie/popular?language=en-US&page=1');
+    return request(`/movie/popular?language=en-US&page=1`);
 }
 
 //tmdb return image path -> full image URL
