@@ -2,7 +2,7 @@ import Header from "./components/Header";
 import MovieGrid from "./components/MovieGrid";
 import {useEffect, useState} from "react";
 import {getPopularMovies} from "./lib/tmdb";
-import {getMovieDetails, getImageUrl} from "./lib/tmdb";
+import {getMovieDetails, getImageUrl, searchMovies} from "./lib/tmdb";
 
 export default function App() {
   //state for movies, loading, error, selected movie
@@ -10,6 +10,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [title, setTitle] = useState("Poplar Movies");
 
   //get popular movies
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function App() {
     setError("");
     setSelectedMovie(null);
     //setSelectedMovie();
-
+    setTitle("Popular Movies")
     
     try{
     const data = await getPopularMovies();
@@ -30,6 +31,30 @@ export default function App() {
     } catch (err){
       setError(err.message || "Could not load.");
     } finally {
+      setLoading(false);
+    }
+  }
+//search movie
+  async function handleSearch(query){
+    //if nothing in query load popular
+    if (!query){
+      loadPopular();
+      return;
+    }
+    //start loading state
+    setLoading(true);
+    //clear previous error
+    setError("");
+    setSelectedMovie(null);
+    //update heading
+    setTitle(`Search result for "${query}"`);
+    try{
+      const data = await searchMovies(query);
+      setMovies(data.results || [])
+
+    }catch(err){
+      setError(err.message || "Search failed!")
+    } finally{
       setLoading(false);
     }
   }
@@ -55,7 +80,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Header onHome={loadPopular} />
+      <Header onSearch={handleSearch}  onHome={loadPopular} />
 
       <main className="page-content">
         {/* if selectedMovie is not null, show movie details */}
@@ -82,12 +107,12 @@ export default function App() {
           
         <section className="page-heading">
           <p className="next">FIND YOUR NEXT FAVORITE</p>
-          <h1>Popular Movies</h1>
+          <h1>{title}</h1>
           <p>Discover movies, explore details, save a watchlist</p>          
         </section>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        <MovieGrid movies={movies} onOpen={openMovie} />
+        {!loading && !error && <MovieGrid movies={movies} onOpen={openMovie} />}
         </>
         )}
       </main>

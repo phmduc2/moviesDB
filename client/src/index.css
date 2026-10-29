@@ -156,7 +156,7 @@ h1{
   color: white;
 }
 .movie-details{
-  min-height: 600px;
+  min-height: 650px;
   align-items: center;
   display: flex;
   padding: clamp(22px, 5vw, 60px); 

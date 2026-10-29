@@ -24,7 +24,7 @@ export default function Header({onHome, onSearch}){
                 {/* search form */}
                 <form className="search-form" onSubmit={handleSubmit} role="search">
                     <input 
-                    type={query}
+                    value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search movies here..."/>
                     <button type="submit">Search</button>
