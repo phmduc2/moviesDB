@@ -1,0 +1,5 @@
+.now-playing h2 { color: royalblue; margin-bottom: 12px; }
+.movie-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.movie-card { min-width: 140px; }
+.movie-card img { width: 100%; border-radius: 8px; }
+.movie-card p { font-size: 12px; color: slategray; margin: 4px 0; }
