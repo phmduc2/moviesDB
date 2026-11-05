@@ -183,6 +183,7 @@ import HomePage from "./layout/HomePage";
 import "./index.css";
 import PopularPage from "./layout/PopularPage";
 import TrendingPage from "./layout/TrendingPage";
+import DetailPage from "./layout/DetailPage";
 
 export default function App() {
   return (
@@ -193,6 +194,8 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/popular" element={<PopularPage />} />
           <Route path="/trending" element={<TrendingPage />} />
+          <Route path="/movie/:id" element={<DetailPage />} />
+          
         </Routes>
       </main>
       <FooterBar />

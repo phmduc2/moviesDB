@@ -1,0 +1,9 @@
+.search-form { display: flex; gap: 8px; max-width: 540px; margin: 0 auto 24px; }
+.search-form input {
+  flex: 1; padding: 11px 14px; border: 1px solid slategray;
+  border-radius: 10px; color: white; background: black;
+}
+.search-form button {
+  border: 0; border-radius: 10px; background: royalblue; color: white;
+  font-weight: 700; padding: 11px 16px;
+}
